@@ -36,7 +36,7 @@ typedef struct s_data
 	u_int64_t		sleep_time;
 	u_int64_t		start_time;
 	pthread_mutex_t	*forks;
-	//pthread_mutex_t	lock;
+	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 }					t_data;
 

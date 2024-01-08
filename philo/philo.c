@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/08 13:36:45 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:48:18 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	load_data(char **av, t_data *data)
 
 void	*routine(t_philo *philo)
 {
+	printf("Time: (%llu) Philo (%d)\n", philo->id);
+	
 	pthread_mutex_lock(&philo->lock);
-	printf("Philo ID (%u)Created on (%d)\n", (int)pthread_self(), philo->id) ;
 	pthread_mutex_unlock(&philo->lock);
 	pthread_exit(NULL);
 	return (NULL);
@@ -44,12 +45,10 @@ int	main(int ac, char **av)
 	pthread_mutex_init(&data.write, NULL);
 	while (i < data.philo_nb)
 	{
-		// pthread_mutex_init(&data.philo[i].lock, NULL);
-		pthread_mutex_lock(&data.write);
+		pthread_mutex_init(&data.philo[i].lock, NULL);
+		//pthread_mutex_lock(&data.write);
 		data.philo[i].id = i;
 		pthread_create(&data.tid[i], NULL, &routine, (void *)&data.philo[i]);
-		pthread_detach(data.tid[i]);
-		pthread_mutex_unlock(&data.write);
 		i++;
 	}
 	i = 0;
@@ -73,6 +72,7 @@ int	main(int ac, char **av)
 /*
 do check if num
 do ft_atoi
+Create a time calculator for u_int64_t !!!! ###### !!!!! #####
 initialize all variables and allocate them.
 prepare a free function for each malloc alocation
 
