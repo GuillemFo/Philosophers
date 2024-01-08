@@ -6,50 +6,61 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/08 08:40:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/08 13:36:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	load_data(char *av, t_data data)
+void	load_data(char **av, t_data *data)
 {
-	data.philo_nb = ft_atoi(av[1]);
-	data.death_time = ft_atoi(av[2]);
-	data.eat_time = ft_atoi(av[3]);
-	data.sleep_time = ft_atoi(av[4]);
-	data.meals_nb = ft_atoi(av[5]);
-
+	data->tid = (pthread_t *)malloc (data->philo_nb * sizeof(pthread_t));
+	data->philo_nb = ft_atoi(av[1]);
+	data->death_time = ft_atoi(av[2]);
+	data->eat_time = ft_atoi(av[3]);
+	data->sleep_time = ft_atoi(av[4]);
+	data->meals_nb = ft_atoi(av[5]);
+	data->philo = (t_philo *) malloc (data->philo_nb * sizeof(t_philo));
+	data->dead = 0;
+	data->finished = 0;
+	
 
 }
 
-void	*routine(void)
+void	*routine(t_philo *philo)
 {
-	int	i;
-
-	i = -1;
-	while (++i < 1000000)
-	{
-		pthread_mutex_lock(&lock);
-		cont++;
-		pthread_mutex_unlock(&lock);
-	}
+	pthread_mutex_lock(&philo->lock);
+	printf("Philo ID (%u)Created on (%d)\n", (int)pthread_self(), philo->id) ;
+	pthread_mutex_unlock(&philo->lock);
+	pthread_exit(NULL);
 	return (NULL);
 }
 int	main(int ac, char **av)
 {
 	t_data		data;
 	int			i;
-	pthread_t	tid[];
-
 	i = 0;
-	load_data(*av, data);
-	while (i <= data.philo_nb)
+	load_data(av, &data);
+	pthread_mutex_init(&data.write, NULL);
+	while (i < data.philo_nb)
 	{
-		pthread_create(&tid[i], NULL, &routine, NULL);
+		// pthread_mutex_init(&data.philo[i].lock, NULL);
+		pthread_mutex_lock(&data.write);
+		data.philo[i].id = i;
+		pthread_create(&data.tid[i], NULL, &routine, (void *)&data.philo[i]);
+		pthread_detach(data.tid[i]);
+		pthread_mutex_unlock(&data.write);
 		i++;
 	}
+	i = 0;
+	while (i < data.philo_nb)
+	{
+		pthread_join(data.tid[i], NULL);
+		i++;
+	}
+	pthread_mutex_destroy(&data.write);
 	printf("philos: %d\n", i);
+	pthread_exit(NULL);
 }
 /*
 	pthread_mutex_init(&lock, NULL);

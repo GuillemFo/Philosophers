@@ -6,13 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 00:20:17 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/04 00:27:35 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/08 10:06:19 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
 	int	result;
 	int	flag;

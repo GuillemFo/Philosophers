@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <sys/time.h>
 
 typedef struct s_philo
 {
@@ -35,8 +36,11 @@ typedef struct s_data
 	u_int64_t		sleep_time;
 	u_int64_t		start_time;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	lock;
+	//pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 }					t_data;
+
+
+int	ft_atoi(char *str);
 
 #endif
