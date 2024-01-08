@@ -6,14 +6,22 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/04 00:39:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/08 08:40:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int				cont = 0;
-pthread_mutex_t	lock;
+void	load_data(char *av, t_data data)
+{
+	data.philo_nb = ft_atoi(av[1]);
+	data.death_time = ft_atoi(av[2]);
+	data.eat_time = ft_atoi(av[3]);
+	data.sleep_time = ft_atoi(av[4]);
+	data.meals_nb = ft_atoi(av[5]);
+
+
+}
 
 void	*routine(void)
 {
@@ -30,16 +38,27 @@ void	*routine(void)
 }
 int	main(int ac, char **av)
 {
-	pthread_t tid1, tid2;
+	t_data		data;
+	int			i;
+	pthread_t	tid[];
+
+	i = 0;
+	load_data(*av, data);
+	while (i <= data.philo_nb)
+	{
+		pthread_create(&tid[i], NULL, &routine, NULL);
+		i++;
+	}
+	printf("philos: %d\n", i);
+}
+/*
 	pthread_mutex_init(&lock, NULL);
-	pthread_create(&tid1, NULL, &routine, NULL);
 	pthread_create(&tid2, NULL, &routine, NULL);
 	pthread_join(tid1, NULL);
 	pthread_join(tid2, NULL);
 	pthread_mutex_destroy(&lock);
-	printf("cont: %d\n", cont);
-}
 
+*/
 /*
 do check if num
 do ft_atoi

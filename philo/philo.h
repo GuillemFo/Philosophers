@@ -29,7 +29,7 @@ typedef struct s_data
 	int				meals_nb;
 	int				dead;
 	int				finished;
-	t_philo			*philos;
+	t_philo			*philo;
 	u_int64_t		death_time;
 	u_int64_t		eat_time;
 	u_int64_t		sleep_time;
