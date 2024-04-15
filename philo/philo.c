@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/15 17:17:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:43:17 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ int	main(int ac, char **av)
 	if	(load_data(av, &data) == -1)
 		return (printf("Invalid argument/s\n"), 1);
 	
-
-	
+	return (0);
 }
 
 

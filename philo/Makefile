@@ -42,7 +42,7 @@ $(OBJ_PATH)%.o:%.c
 re: fclean all
 
 clean:
-				@rm -rf $(OBJ_PATH)
+				@rm -rf $(NAME)
 				@echo "$(CYAN)Philo $(YELLOW)- $(RED)Objs deleted$(RESET)"
 
 fclean:	clean
