@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/08 14:48:18 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:08:07 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	*routine(t_philo *philo)
 	pthread_exit(NULL);
 	return (NULL);
 }
+
 int	main(int ac, char **av)
 {
 	t_data		data;

@@ -7,6 +7,11 @@
 # include <unistd.h>
 #include <sys/time.h>
 
+
+/*
+Strart trying to create 2 filos and that all input works correctly.
+*/
+
 typedef struct s_philo
 {
 	struct s_data	*data;
