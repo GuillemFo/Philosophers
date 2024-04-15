@@ -6,62 +6,51 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/15 13:08:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:17:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	load_data(char **av, t_data *data)
+int	load_data(char **av, t_data *data)
 {
-	data->tid = (pthread_t *)malloc (data->philo_nb * sizeof(pthread_t));
-	data->philo_nb = ft_atoi(av[1]);
-	data->death_time = ft_atoi(av[2]);
-	data->eat_time = ft_atoi(av[3]);
-	data->sleep_time = ft_atoi(av[4]);
-	data->meals_nb = ft_atoi(av[5]);
-	data->philo = (t_philo *) malloc (data->philo_nb * sizeof(t_philo));
-	data->dead = 0;
-	data->finished = 0;
-	
-
+	if (check_input_valid(av) == true)
+	{
+		data->nb_philo = ft_atoi(av[1]);
+		data->t_death = ft_atoi(av[2]);
+		data->t_eat = ft_atoi(av[3]);
+		data->t_sleep = ft_atoi(av[4]);
+		data->nb_meal = -1;
+		if (av[5])
+			data->nb_meal = ft_atoi(av[5]);
+	}
+	else
+		return (-1);
+	return (0);
 }
 
-void	*routine(t_philo *philo)
-{
-	printf("Time: (%llu) Philo (%d)\n", philo->id);
-	
-	pthread_mutex_lock(&philo->lock);
-	pthread_mutex_unlock(&philo->lock);
-	pthread_exit(NULL);
-	return (NULL);
-}
+// void	*routine()
+// {
+// 
+// }
+
 
 int	main(int ac, char **av)
 {
 	t_data		data;
-	int			i;
-	i = 0;
-	load_data(av, &data);
-	pthread_mutex_init(&data.write, NULL);
-	while (i < data.philo_nb)
-	{
-		pthread_mutex_init(&data.philo[i].lock, NULL);
-		//pthread_mutex_lock(&data.write);
-		data.philo[i].id = i;
-		pthread_create(&data.tid[i], NULL, &routine, (void *)&data.philo[i]);
-		i++;
-	}
-	i = 0;
-	while (i < data.philo_nb)
-	{
-		pthread_join(data.tid[i], NULL);
-		i++;
-	}
-	pthread_mutex_destroy(&data.write);
-	printf("philos: %d\n", i);
-	pthread_exit(NULL);
+	
+	if (ac < 4 || ac > 5)
+		return (printf("Invalid number of arguments\n"), 1);
+	if	(load_data(av, &data) == -1)
+		return (printf("Invalid argument/s\n"), 1);
+	
+
+	
 }
+
+
+
+
 /*
 	pthread_mutex_init(&lock, NULL);
 	pthread_create(&tid2, NULL, &routine, NULL);

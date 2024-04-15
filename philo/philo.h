@@ -5,47 +5,37 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <sys/time.h>
+# include <limits.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
 
 /*
 Strart trying to create 2 filos and that all input works correctly.
 */
 
+// struct for each philo
 typedef struct s_philo
 {
 	struct s_data	*data;
-	pthread_t		t1;
-	int				id;
-	int				eat_count;
-	int				status;
-	int				eating;
-	uint64_t		time_to_die;
-	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-
 }					t_philo;
 
 
+//struct for all data needed for the program
 typedef struct s_data
 {
-	pthread_t		*tid;
-	int				philo_nb;
-	int				meals_nb;
-	int				dead;
-	int				finished;
+	pthread_t		*t_id;
+	int				nb_philo;
+	uint64_t		t_death;
+	uint64_t		t_eat;
+	uint64_t		t_sleep;
+	int				nb_meal;
 	t_philo			*philo;
-	u_int64_t		death_time;
-	u_int64_t		eat_time;
-	u_int64_t		sleep_time;
-	u_int64_t		start_time;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	lock;
-	pthread_mutex_t	write;
 }					t_data;
 
-
-int	ft_atoi(char *str);
+bool	check_input_valid(char **av);
+int		ft_atoi(const char *str);
 
 #endif
