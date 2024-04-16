@@ -11,7 +11,7 @@
 
 
 /*
-Strart trying to create 2 filos and that all input works correctly.
+Strart trying to create 2 philos and that all input works correctly.
 */
 
 // struct for each philo
@@ -20,8 +20,8 @@ typedef struct s_philo
 	int				id;
 	pthread_t		*tid;
 	struct s_data	*data;
-	//pthread_mutex_t	*r_fork;
-	//pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
 }					t_philo;
 
 
@@ -33,6 +33,8 @@ typedef struct s_data
 	uint64_t		t_eat;
 	uint64_t		t_sleep;
 	int				nb_meal;
+	pthread_mutex_t	*fork;
+	
 	t_philo			*philo;
 	bool			is_dead;
 }					t_data;

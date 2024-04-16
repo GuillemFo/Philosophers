@@ -6,28 +6,72 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/16 13:00:00 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:25:06 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	init_fork(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_init(&data->fork[i], NULL);
+		i++;
+	}
+	return (0);
+}
+
+int	init_philos(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		data->philo[i].id = i + 1;
+		data->philo[i].r_fork = &data->fork[i];
+		if (i < data->nb_philo - 1)
+			data->philo[i].l_fork = &data->fork[i + 1];
+		else
+			data->philo[i].l_fork = &data->fork[0];
+		printf("Philo_id:%d r_fork:%p\n", data->philo[i].id, data->philo[i].r_fork);
+		printf("Philo_id:%d l_fork:%p\n", data->philo[i].id, data->philo[i].l_fork);
+		i++;
+	}
+	return (0);
+}
+
+
 
 int	load_data(char **av, t_data *data)
 {
 	if (check_input_valid(av) == true)
 	{
 		data->nb_philo = ft_atoi(av[1]);
+		printf("nb_philos:%d\n", data->nb_philo);
 		data->t_death = ft_atoi(av[2]);
+		printf("t_death:%llu\n", data->t_death);
 		data->t_eat = ft_atoi(av[3]);
+		printf("t_eat:%llu\n", data->t_eat);
 		data->t_sleep = ft_atoi(av[4]);
+		printf("t_sleep:%llu\n", data->t_sleep);
 		data->nb_meal = -1;
+		printf("NO nb_meal:%d\n", data->nb_meal);
 		if (av[5])
+		{
 			data->nb_meal = ft_atoi(av[5]);
+			printf("nb_meal:%d\n", data->nb_meal);
+		}
 		data->is_dead = false;
-		data->philo->id = 0;
-		data->philo->tid = data->nb_philo;
-		//data->philo->r_fork = pthread_mutex_init(&data->philo->r_fork, NULL);
-		//data->philo->l_fork = pthread_mutex_init(&data->philo->l_fork, NULL);
+		printf("is_dead:%d\n", data->is_dead);
+		data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
+		init_fork(data);
+		data->philo = malloc(data->nb_philo * sizeof(t_philo));
+		init_philos(data);
 	}
 	else
 		return (-1);
@@ -42,7 +86,7 @@ int	main(int ac, char **av)
 		return (printf("Invalid number of arguments\n"), 1);
 	if	(load_data(av, &data) == -1)
 		return (printf("Invalid argument/s\n"), 1);
-	
+	printf("ended\n");
 	return (0);
 }
 
@@ -71,7 +115,7 @@ prepare a free function for each malloc alocation
 program
 number philos
 time philo must not eat to die
-time it teaks each to eat
+time it takes each to eat
 time it takes to sleep
 times philo must eat to terminate program
 
