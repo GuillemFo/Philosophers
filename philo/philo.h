@@ -19,10 +19,9 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		*tid;
-	bool			dead;
 	struct s_data	*data;
-	pthread_mutex_t	*r_fork;
-	pthread_mutex_t	*l_fork;
+	//pthread_mutex_t	*r_fork;
+	//pthread_mutex_t	*l_fork;
 }					t_philo;
 
 
