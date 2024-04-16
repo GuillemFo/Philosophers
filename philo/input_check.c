@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:08:14 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/15 17:16:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:18:58 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	ft_isdigit(int val)
 		return (false);
 }
 
-bool	is_ok_digit(char *s)
+bool	is_ok_dgit(char *s, int max_size)
 {
 	long	result;
 	int		i;
@@ -67,7 +67,7 @@ bool	is_ok_digit(char *s)
 		result = result * 10 + s[i] - '0';
 		i++;
 	}
-	if (result > INT_MAX)
+	if (result > max_size || result == 0)
 		return (false);
 	return (true);
 }
@@ -94,17 +94,17 @@ bool	is_digit_str(char *s)
 
 bool	check_input_valid(char **av)
 {
-	if (is_digit_str(av[1]) == false || is_ok_digit(av[1]) == false)
+	if (is_digit_str(av[1]) == false || is_ok_dgit(av[1], 200) == false)
 		return (false);
-	if (is_digit_str(av[2]) == false || is_ok_digit(av[2]) == false)
+	if (is_digit_str(av[2]) == false || is_ok_dgit(av[2], 10000) == false)
 		return (false);
-	if (is_digit_str(av[3]) == false || is_ok_digit(av[3]) == false)
+	if (is_digit_str(av[3]) == false || is_ok_dgit(av[3], 10000) == false)
 		return (false);
-	if (is_digit_str(av[4]) == false || is_ok_digit(av[4]) == false)
+	if (is_digit_str(av[4]) == false || is_ok_dgit(av[4], 10000) == false)
 		return (false);
 	if (av[5])
 	{
-		if (is_digit_str(av[5]) == false || is_ok_digit(av[5]) == false)
+		if (is_digit_str(av[5]) == false || is_ok_dgit(av[5], INT_MAX) == false)
 			return (false);
 	}
 	return (true);	

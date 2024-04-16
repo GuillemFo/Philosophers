@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/15 17:43:17 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:34:59 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@ int	load_data(char **av, t_data *data)
 		data->nb_meal = -1;
 		if (av[5])
 			data->nb_meal = ft_atoi(av[5]);
+		data->is_dead = false;
+		data->philo->id = -1;
+		data->philo->tid = -1;
+		data->philo->r_fork = pthread_mutex_init(&data->philo->r_fork, NULL);
+		data->philo->l_fork = pthread_mutex_init(&data->philo->l_fork, NULL);
 	}
 	else
 		return (-1);
 	return (0);
 }
-
-// void	*routine()
-// {
-// 
-// }
-
 
 int	main(int ac, char **av)
 {
@@ -97,7 +96,7 @@ if (ac != 6)
 		if (rc)
 		{
 			printf("\n ERROR: return (code from pthread_create id %d \n", rc);
-			exit(1);
+			break ;
 		}
 		printf("\nI am thread (%u). Created new thread (%u) in iterarion
 			%d ...\n", tid, thread_id[x], x);
