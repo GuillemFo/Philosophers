@@ -2,7 +2,7 @@ NAME = philo
 
 OBJ_PATH = tmp/
 
-SRC = philo.c input_check.c
+SRC = philo.c input_check.c init_philo.c philo_actions.c
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 

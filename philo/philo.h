@@ -41,6 +41,6 @@ typedef struct s_data
 
 bool	check_input_valid(char **av);
 int		ft_atoi(const char *str);
-int		init_philo(t_data *data, int philo_id);
+int		init_philos(t_data *data);
 
 #endif

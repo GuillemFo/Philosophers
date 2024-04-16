@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/16 16:25:06 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:41:44 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,6 @@ int	init_fork(t_data *data)
 	return (0);
 }
 
-int	init_philos(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		data->philo[i].id = i + 1;
-		data->philo[i].r_fork = &data->fork[i];
-		if (i < data->nb_philo - 1)
-			data->philo[i].l_fork = &data->fork[i + 1];
-		else
-			data->philo[i].l_fork = &data->fork[0];
-		printf("Philo_id:%d r_fork:%p\n", data->philo[i].id, data->philo[i].r_fork);
-		printf("Philo_id:%d l_fork:%p\n", data->philo[i].id, data->philo[i].l_fork);
-		i++;
-	}
-	return (0);
-}
-
-
-
 int	load_data(char **av, t_data *data)
 {
 	if (check_input_valid(av) == true)
@@ -60,14 +38,12 @@ int	load_data(char **av, t_data *data)
 		data->t_sleep = ft_atoi(av[4]);
 		printf("t_sleep:%llu\n", data->t_sleep);
 		data->nb_meal = -1;
-		printf("NO nb_meal:%d\n", data->nb_meal);
 		if (av[5])
 		{
 			data->nb_meal = ft_atoi(av[5]);
 			printf("nb_meal:%d\n", data->nb_meal);
 		}
 		data->is_dead = false;
-		printf("is_dead:%d\n", data->is_dead);
 		data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
 		init_fork(data);
 		data->philo = malloc(data->nb_philo * sizeof(t_philo));
