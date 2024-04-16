@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/16 16:41:44 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:26:13 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	load_data(char **av, t_data *data)
 {
 	if (check_input_valid(av) == true)
 	{
+		printf("Valid input, loading data\n");
 		data->nb_philo = ft_atoi(av[1]);
 		printf("nb_philos:%d\n", data->nb_philo);
 		data->t_death = ft_atoi(av[2]);
@@ -57,11 +58,14 @@ int	load_data(char **av, t_data *data)
 int	main(int ac, char **av)
 {
 	t_data		data;
+	time_t		time;
 	
 	if (ac < 4 || ac > 5)
 		return (printf("Invalid number of arguments\n"), 1);
 	if	(load_data(av, &data) == -1)
 		return (printf("Invalid argument/s\n"), 1);
+	
+	create_philos(&data);
 	printf("ended\n");
 	return (0);
 }

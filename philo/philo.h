@@ -18,7 +18,7 @@ Strart trying to create 2 philos and that all input works correctly.
 typedef struct s_philo
 {
 	int				id;
-	pthread_t		*tid;
+	pthread_t		tid;
 	struct s_data	*data;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
@@ -35,6 +35,7 @@ typedef struct s_data
 	int				nb_meal;
 	pthread_mutex_t	*fork;
 	
+	long long		t;
 	t_philo			*philo;
 	bool			is_dead;
 }					t_data;
@@ -42,5 +43,6 @@ typedef struct s_data
 bool	check_input_valid(char **av);
 int		ft_atoi(const char *str);
 int		init_philos(t_data *data);
+int		create_philos(t_data *data);
 
 #endif
