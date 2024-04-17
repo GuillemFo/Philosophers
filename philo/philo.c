@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/16 18:26:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:55:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	load_data(char **av, t_data *data)
 			data->nb_meal = ft_atoi(av[5]);
 			printf("nb_meal:%d\n", data->nb_meal);
 		}
+		data->t0 = get_time_ms();
+		pthread_mutex_init(&data->lock, NULL);
 		data->is_dead = false;
 		data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
 		init_fork(data);
@@ -58,15 +60,13 @@ int	load_data(char **av, t_data *data)
 int	main(int ac, char **av)
 {
 	t_data		data;
-	time_t		time;
 	
-	if (ac < 4 || ac > 5)
+	if (ac < 5 || ac > 6)
 		return (printf("Invalid number of arguments\n"), 1);
 	if	(load_data(av, &data) == -1)
 		return (printf("Invalid argument/s\n"), 1);
 	
 	create_philos(&data);
-	printf("ended\n");
 	return (0);
 }
 

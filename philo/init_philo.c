@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/16 16:59:28 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:29:08 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int	init_philos(t_data *data)
 	while (i < data->nb_philo)
 	{
 		data->philo[i].data = data;
-		printf("Data access is_dead: %d\n", data->philo[i].data->is_dead);
 		data->philo[i].id = i + 1;
+		pthread_mutex_init(&data->philo[i].lock, NULL);
+		data->philo[i].lst_meal = -1;
 		data->philo[i].r_fork = &data->fork[i];
 		if (i < data->nb_philo - 1)
 			data->philo[i].l_fork = &data->fork[i + 1];

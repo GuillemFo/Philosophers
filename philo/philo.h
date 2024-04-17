@@ -20,6 +20,8 @@ typedef struct s_philo
 	int				id;
 	pthread_t		tid;
 	struct s_data	*data;
+	uint64_t		lst_meal;
+	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 }					t_philo;
@@ -35,14 +37,16 @@ typedef struct s_data
 	int				nb_meal;
 	pthread_mutex_t	*fork;
 	
-	long long		t;
-	t_philo			*philo;
+	uint64_t		t0;
+	pthread_mutex_t	lock;
 	bool			is_dead;
+	t_philo			*philo;
 }					t_data;
 
-bool	check_input_valid(char **av);
-int		ft_atoi(const char *str);
-int		init_philos(t_data *data);
-int		create_philos(t_data *data);
+bool		check_input_valid(char **av);
+int			ft_atoi(const char *str);
+int			init_philos(t_data *data);
+int			create_philos(t_data *data);
+uint64_t	get_time_ms(void);
 
 #endif
