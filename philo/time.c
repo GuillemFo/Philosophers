@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:09:17 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 13:16:04 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:33:02 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 uint64_t	eat_time(t_philo *philo)
 {
 	uint64_t	tm;
-	
+
 	pthread_mutex_lock(&philo->data->lock);
 	tm = (philo->data->t_eat * 1000);
 	pthread_mutex_unlock(&philo->data->lock);
@@ -25,7 +25,7 @@ uint64_t	eat_time(t_philo *philo)
 uint64_t	sleep_time(t_philo *philo)
 {
 	uint64_t	tm;
-	
+
 	pthread_mutex_lock(&philo->data->lock);
 	tm = (philo->data->t_sleep * 1000);
 	pthread_mutex_unlock(&philo->data->lock);

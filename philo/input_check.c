@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:08:14 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/16 11:18:58 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:26:56 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	is_ok_dgit(char *s, int max_size)
 
 bool	is_digit_str(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -107,5 +107,5 @@ bool	check_input_valid(char **av)
 		if (is_digit_str(av[5]) == false || is_ok_dgit(av[5], INT_MAX) == false)
 			return (false);
 	}
-	return (true);	
+	return (true);
 }
