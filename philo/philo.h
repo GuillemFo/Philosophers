@@ -48,5 +48,5 @@ int			ft_atoi(const char *str);
 int			init_philos(t_data *data);
 int			create_philos(t_data *data);
 uint64_t	get_time_ms(void);
-
+uint64_t	get_curr_time(t_data *data);
 #endif
