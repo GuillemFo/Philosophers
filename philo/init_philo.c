@@ -6,11 +6,31 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 13:26:27 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:02:14 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_is_dead(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		if (get_curr_time(data) - lst_meal_time(&data->philo[i]) <
+			death_time(&data->philo[i]))
+		{
+			pthread_mutex_lock(&data->lock);
+			data->is_dead = true;
+			pthread_mutex_unlock(&data->lock);
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	init_philos(t_data *data)
 {
@@ -28,10 +48,6 @@ int	init_philos(t_data *data)
 			data->philo[i].l_fork = &data->fork[i + 1];
 		else
 			data->philo[i].l_fork = &data->fork[0];
-		printf("Philo_id:%d r_fork:%p\n", data->philo[i].id,
-			data->philo[i].r_fork);
-		printf("Philo_id:%d l_fork:%p\n", data->philo[i].id,
-			data->philo[i].l_fork);
 		i++;
 	}
 	return (0);
@@ -48,6 +64,9 @@ int	create_philos(t_data *data)
 		i++;
 	}
 	i = 0;
+	if (ft_is_dead(data) == -1)
+		printf("%llu Philo: %d  died\n", get_curr_time(data),
+			data->philo->id);
 	while (i < data->nb_philo)
 	{
 		pthread_join(data->philo[i].tid, NULL);

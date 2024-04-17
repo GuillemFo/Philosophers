@@ -6,15 +6,14 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 13:32:46 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:18:13 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_is_dead(t_philo *philo)
+int			check_philo_status()	//add this function before any philo move like take a fork, think or sleep and close the thread with return. create a cleaner to destroy all threads and mutex
 {
-
+	
 }
 
 void	ft_think(t_philo *philo)
@@ -61,6 +60,5 @@ void	*routine(void *aux)
 	ft_eat(philo);
 	ft_sleep(philo);
 	ft_think(philo);
-	//ft_is_dead(&philo);
 	return (NULL);
 }
