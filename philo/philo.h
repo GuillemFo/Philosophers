@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 17:04:35 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/18 10:02:56 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@
 # include <limits.h>
 # include <sys/time.h>
 # include <stdbool.h>
+
+/*	Regular Colors	*/
+# define C_RED     "\x1b[31m"
+# define C_GREEN   "\x1b[32m"
+# define C_YELLOW  "\x1b[33m"
+# define C_BLUE    "\x1b[34m"
+# define C_MAGENTA "\x1b[35m"
+# define C_CYAN    "\x1b[36m"
+# define C_WHITE   "\x1b[37m"
+
+/*	Reset	*/
+# define C_RESET   "\x1b[0m"
 
 typedef struct s_philo
 {
@@ -59,6 +71,6 @@ uint64_t	death_time(t_philo *philo);
 uint64_t	init_time(t_data *data);
 uint64_t	lst_meal_time(t_philo *philo);
 int			ft_is_dead(t_data *data);
-int			check_philo_status();
+int			check_philo_status(t_philo *philo);
 
 #endif
