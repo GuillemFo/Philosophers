@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 13:04:11 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:05:52 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,7 @@ int	main(int ac, char **av)
 	create_philos(&data);
 	return (0);
 }
+
+/*
+try lock the prints and create a specific function for them.
+*/

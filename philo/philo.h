@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 13:10:48 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:10:00 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define C_BLUE    "\x1b[34m"
 # define C_MAGENTA "\x1b[35m"
 # define C_CYAN    "\x1b[36m"
-# define C_WHITE   "\x1b[37m"
+# define C_WHI   "\x1b[37m"
 
 /*	Reset	*/
 # define C_RESET   "\x1b[0m"
@@ -36,7 +36,7 @@
 typedef struct s_philo
 {
 	int				id;
-	int	meals;
+	int				meals;
 	pthread_t		tid;
 	struct s_data	*data;
 	uint64_t		lst_meal;
@@ -51,7 +51,7 @@ typedef struct s_data
 	uint64_t		t_death;
 	uint64_t		t_eat;
 	uint64_t		t_sleep;
-	int	nb_meal;
+	int				nb_meal;
 	pthread_mutex_t	*fork;	
 	uint64_t		t0;
 	pthread_mutex_t	lock;

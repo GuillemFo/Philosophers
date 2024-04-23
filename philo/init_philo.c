@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 13:44:32 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:55:34 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,23 @@ int	create_philos(t_data *data)
 		
 		p = ft_is_dead(data);
 		if (p > 0)
-			printf(C_RED "%llu Philo: %d  died\n"C_WHITE, get_curr_time(data),
-				p);
-		
+		{
+			printf(C_RED "%llu Philo: %d  died\n"C_WHI, get_curr_time(data), p);
+			i = -1;
+			while (++i < data->nb_philo)
+			{
+				pthread_join(data->philo[i].tid, NULL);
+				pthread_mutex_destroy(data->philo[i].r_fork);
+			}
+		}
 	}
+	// i = -1;
+	// while (++i < data->nb_philo)
+	// {
+		// pthread_join(data->philo[i].tid, NULL);
+	// }
 	i = -1;
 	while (++i < data->nb_philo)
-	{
-		//	pthread_mutex_unlock(&data->philo[i].lock);
-		pthread_join(data->philo[i].tid, NULL);
-	}
-	i = -1;
-	while (++i < data->nb_philo)
-	{
-		//	pthread_mutex_unlock(&data->philo[i].lock);
 		pthread_mutex_destroy(data->philo[i].r_fork);
-	}
 	return (0);
 }

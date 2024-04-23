@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 13:39:58 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:52:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_philo_status(t_philo *philo)
 	pthread_mutex_lock(&philo->data->lock);
 	if ((philo->data->is_dead) == true)
 	{
-		//pthread_mutex_unlock(&philo->data->lock);
+		pthread_mutex_unlock(&philo->data->lock);
 		return (-99);
 	}
 	pthread_mutex_unlock(&philo->data->lock);
@@ -35,14 +35,13 @@ void	ft_eat(t_philo *philo)
 {
 	if (check_philo_status(philo) == -99)
 		return ;
-	printf("gdshj\n");
 	pthread_mutex_lock(philo->r_fork);
-	printf("%llu Philo: %d  has taken a fork\n", get_curr_time(philo->data),
+	printf("%llu Philo: %d  has taken 1 a fork\n", get_curr_time(philo->data),
 		philo->id);
 	if (check_philo_status(philo) == -99)
 		return ;
 	pthread_mutex_lock(philo->l_fork);
-	printf("%llu Philo: %d  has taken a fork\n", get_curr_time(philo->data),
+	printf("%llu Philo: %d  has taken 2 a fork\n", get_curr_time(philo->data),
 		philo->id);
 	if (check_philo_status(philo) == -99)
 		return ;
@@ -75,7 +74,7 @@ void	*routine(void *aux)
 	philo = aux;
 	while (philo->data->is_dead == false)
 	{	
-		ft_eat(philo);;
+		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
 	}
