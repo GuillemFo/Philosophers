@@ -2,7 +2,7 @@ NAME = philo
 
 OBJ_PATH = tmp/
 
-SRC = philo.c input_check.c init_philo.c philo_actions.c time.c
+SRC = philo.c input_check.c init_philo.c philo_actions.c time.c time_utils.c
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
@@ -34,7 +34,7 @@ $(NAME): $(OBJ)
 				@cc $(CFLAGS) $(OBJ) -o $(NAME)
 				@echo "$(GREEN)Philo compiled$(RESET)"
 
-$(OBJ_PATH)%.o:%.c
+$(OBJ_PATH)%.o:%.c philo.h Makefile
 				@mkdir -p $(dir $@)
 				@cc $(CFLAGS) -c $< -o $@
 				@echo "$(CYAN)Compiling Philo:$(YELLOW) $@$(RESET)"

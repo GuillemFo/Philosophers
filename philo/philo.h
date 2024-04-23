@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/18 10:02:56 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 09:37:50 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ uint64_t	init_time(t_data *data);
 uint64_t	lst_meal_time(t_philo *philo);
 int			ft_is_dead(t_data *data);
 int			check_philo_status(t_philo *philo);
+int			ft_usleep(uint64_t time);
 
 #endif

@@ -6,16 +6,17 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/18 12:30:34 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:18:07 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-int	check_philo_status(t_philo *philo)	//add this function before any philo move like take a fork, think or sleep and close the thread with return. create a cleaner to destroy all threads and mutex
+int	check_philo_status(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->lock);
 	if ((philo->data->is_dead) == true)
 	{
+		pthread_mutex_unlock(&philo->data->lock);
 		return (-99);
 	}
 	pthread_mutex_unlock(&philo->data->lock);
@@ -47,11 +48,11 @@ void	ft_eat(t_philo *philo)
 	if (check_philo_status(philo) == -99)
 		return ;
 	pthread_mutex_lock(&philo->lock);
-	philo->lst_meal = get_curr_time(philo->data);
+	philo->lst_meal = get_time_ms();
 	pthread_mutex_unlock(&philo->lock);
 	printf("%llu Philo: %d is eating\n", philo->lst_meal, philo->id);
 	time = eat_time(philo);
-	usleep(time);
+	ft_usleep(time);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
@@ -65,7 +66,7 @@ void	ft_sleep(t_philo *philo)
 	time = get_curr_time(philo->data);
 	printf("%llu Philo: %d is sleeping\n", time, philo->id);
 	time = sleep_time(philo);
-	usleep(time);
+	ft_usleep(time);
 }
 
 void	*routine(void *aux)
