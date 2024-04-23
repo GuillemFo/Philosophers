@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 09:37:50 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:10:48 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 typedef struct s_philo
 {
 	int				id;
+	int	meals;
 	pthread_t		tid;
 	struct s_data	*data;
 	uint64_t		lst_meal;
@@ -50,7 +51,7 @@ typedef struct s_data
 	uint64_t		t_death;
 	uint64_t		t_eat;
 	uint64_t		t_sleep;
-	int				nb_meal;
+	int	nb_meal;
 	pthread_mutex_t	*fork;	
 	uint64_t		t0;
 	pthread_mutex_t	lock;
@@ -73,5 +74,6 @@ uint64_t	lst_meal_time(t_philo *philo);
 int			ft_is_dead(t_data *data);
 int			check_philo_status(t_philo *philo);
 int			ft_usleep(uint64_t time);
+void		p_meals(t_philo *philo);
 
 #endif

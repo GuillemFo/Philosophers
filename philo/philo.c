@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 13:30:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:04:11 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	load_data(char **av, t_data *data)
 		data->t_death = ft_atoi(av[2]);
 		data->t_eat = ft_atoi(av[3]);
 		data->t_sleep = ft_atoi(av[4]);
-		data->nb_meal = -1;
+		data->nb_meal = 0;
 		if (av[5])
 			data->nb_meal = ft_atoi(av[5]);
 		data->t0 = get_time_ms();

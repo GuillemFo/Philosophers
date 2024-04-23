@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 09:37:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:02:10 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,11 @@ int	ft_usleep(uint64_t time)
 	while (get_time_ms() - start_time < time)
 		usleep(150);
 	return (1);
+}
+
+void	p_meals(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->lock);
+	philo->meals++;
+	pthread_mutex_unlock(&philo->lock);
 }

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 12:16:33 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:44:32 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	ft_is_dead(t_data *data)
 // 
 		//printf("Cal : %llu\n", lst_meal_time(data->philo));
 		
-		if (get_curr_time(data) -  lst_meal_time(data->philo) >=
+		if (get_time_ms() -  lst_meal_time(&data->philo[i]) >=
 			death_time(&data->philo[i]))
 		{
 			pthread_mutex_lock(&data->lock);
 			data->is_dead = true;
 			pthread_mutex_unlock(&data->lock);
-			return (-1);
+			return (data->philo[i].id);
 		}
 		usleep(10);
 		i++;
@@ -50,8 +50,9 @@ int	init_philos(t_data *data)
 	{
 		data->philo[i].data = data;
 		data->philo[i].id = i + 1;
+		data->philo[i].meals = -1;
 		pthread_mutex_init(&data->philo[i].lock, NULL);
-		data->philo[i].lst_meal = get_time_ms();	// get current time?
+		data->philo[i].lst_meal = get_time_ms();
 		data->philo[i].r_fork = &data->fork[i];
 		if (i < data->nb_philo - 1)
 			data->philo[i].l_fork = &data->fork[i + 1];
@@ -71,19 +72,29 @@ int	create_philos(t_data *data)
 	{
 		pthread_create(&data->philo[i].tid, NULL, routine, &data->philo[i]);
 		i++;
-		usleep(250);
+		usleep(50);
 	}
-	i = 0;
 	while (data->is_dead == false)
 	{
-		if (ft_is_dead(data) == -1)
+		int	p;
+		
+		p = ft_is_dead(data);
+		if (p > 0)
 			printf(C_RED "%llu Philo: %d  died\n"C_WHITE, get_curr_time(data),
-				data->philo->id);
+				p);
+		
 	}
-	while (i < data->nb_philo)
+	i = -1;
+	while (++i < data->nb_philo)
 	{
+		//	pthread_mutex_unlock(&data->philo[i].lock);
 		pthread_join(data->philo[i].tid, NULL);
-		i++;
+	}
+	i = -1;
+	while (++i < data->nb_philo)
+	{
+		//	pthread_mutex_unlock(&data->philo[i].lock);
+		pthread_mutex_destroy(data->philo[i].r_fork);
 	}
 	return (0);
 }
