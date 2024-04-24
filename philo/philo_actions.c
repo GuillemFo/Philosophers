@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 15:52:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 08:52:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,19 @@ void	ft_eat(t_philo *philo)
 	printf("%llu Philo: %d  has taken 1 a fork\n", get_curr_time(philo->data),
 		philo->id);
 	if (check_philo_status(philo) == -99)
+	{
+		pthread_mutex_unlock(philo->r_fork);
 		return ;
+	}
 	pthread_mutex_lock(philo->l_fork);
 	printf("%llu Philo: %d  has taken 2 a fork\n", get_curr_time(philo->data),
 		philo->id);
 	if (check_philo_status(philo) == -99)
+	{
+		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
 		return ;
+	}
 	pthread_mutex_lock(&philo->lock);
 	philo->lst_meal = get_time_ms();
 	pthread_mutex_unlock(&philo->lock);
@@ -72,8 +79,10 @@ void	*routine(void *aux)
 	t_philo	*philo;
 
 	philo = aux;
+	//	mutex lock for start var
 	while (philo->data->is_dead == false)
-	{	
+	{
+	//	mutex unlock for start var
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
