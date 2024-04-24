@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 13:27:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:53:24 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	load_data(char **av, t_data *data)
 		init_fork(data);
 		data->philo = malloc(data->nb_philo * sizeof(t_philo));
 		init_philos(data);
-		data->t0 = 0;
+		data->t0 = get_time_ms();
 	}
 	else
 		return (-1);

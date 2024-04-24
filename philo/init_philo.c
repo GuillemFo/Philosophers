@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 14:36:25 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:16:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	ft_is_dead(t_data *data)
 		if (get_time_ms() -  lst_meal_time(&data->philo[i]) >=
 			death_time(&data->philo[i]))
 		{
+			pthread_mutex_lock(&data->lock);
 			data->is_dead = true;
+			pthread_mutex_unlock(&data->lock);
 			return (data->philo[i].id);
 		}
 		i++;
@@ -54,6 +56,7 @@ int	init_philos(t_data *data)
 		data->philo[i].t_sleep = data->t_sleep;
 		data->philo[i].nb_meal = data->nb_meal;
 		data->philo[i].meals_cnt = 0;
+		data->philo[i].lst_meal = get_time_ms();
 		i++;
 	}
 	return (0);
@@ -64,18 +67,21 @@ int	create_philos(t_data *data)
 	int	i;
 
 	i = 0;
+	pthread_mutex_lock(&data->lock);
 	while (i < data->nb_philo)
 	{
 		pthread_create(&data->philo[i].tid, NULL, routine, &data->philo[i]);
 		i++;
 	}
 	//data->t0 = get_time_ms();
+	pthread_mutex_unlock(&data->lock);
 	while (data->is_dead == false)
 	{
 		int	p;
 		
 		p = ft_is_dead(data);
 		if (p > 0)
+	printf("hola?\n");
 		{
 			printf(C_RED "%llu Philo: %d  died\n"C_WHI, get_curr_time(data), p);
 		}
