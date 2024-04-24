@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 17:27:36 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:19:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	main(int ac, char **av)
 		create_one_philo(&data);
 	else
 		create_philos(&data);
+	free (data.fork);
+	free (data.philo);
 	return (0);
 }
 
