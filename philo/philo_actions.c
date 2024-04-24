@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 21:23:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:37:32 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	*routine(void *aux)
 	}
 	return (NULL);
 }
+
 int	ft_monitor(t_data *data)
 {	
 	while (check_philo_status(data->philo) == false && ft_finished(data) == 0)
@@ -115,7 +116,10 @@ int	ft_monitor(t_data *data)
 			return (1);
 		}
 		if (j == -20)
+		{
+			printf(C_RED "AAAAAAAAAAA\n" C_RESET);
 			return (2);
+		}
 	}
 	return (0);
 }

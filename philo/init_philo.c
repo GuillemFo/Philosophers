@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 21:17:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:29:11 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,7 @@ int	create_one_philo(t_data *data)
 		p = ft_is_dead(data);
 		if (p > 0)
 		{
-			pthread_mutex_lock(&data->print);
-			printf(C_RED "%llu Philo: %d  died\n"C_WHI, get_curr_time_f(data), p);
-			pthread_mutex_unlock(&data->print);
+			ft_print_p(data->philo, get_curr_time_f(data), p, "is eating");
 			break ;
 		}
 	}
