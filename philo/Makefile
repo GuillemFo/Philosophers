@@ -6,7 +6,7 @@ SRC = philo.c input_check.c init_philo.c philo_actions.c time.c time_utils.c
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
-CFLAGS = -I philo.h -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -I philo.h -Wall -Wextra -Werror #-g -fsanitize=thread
 
 #################################################################
 

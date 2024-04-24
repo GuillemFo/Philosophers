@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:09:17 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/18 13:04:22 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:50:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ uint64_t	death_time(t_philo *philo)
 {
 	uint64_t	tm;
 
-	pthread_mutex_lock(&philo->data->lock);
-	tm = (philo->data->t_death);
-	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_lock(&philo->lock);
+	tm = (philo->t_death);
+	pthread_mutex_unlock(&philo->lock);
 	return (tm);
 }
 
@@ -36,9 +36,9 @@ uint64_t	eat_time(t_philo *philo)
 {
 	uint64_t	tm;
 
-	pthread_mutex_lock(&philo->data->lock);
-	tm = (philo->data->t_eat);
-	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_lock(&philo->lock);
+	tm = (philo->t_eat);
+	pthread_mutex_unlock(&philo->lock);
 	return (tm);
 }
 
@@ -46,9 +46,9 @@ uint64_t	sleep_time(t_philo *philo)
 {
 	uint64_t	tm;
 
-	pthread_mutex_lock(&philo->data->lock);
-	tm = (philo->data->t_sleep);
-	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_lock(&philo->lock);
+	tm = (philo->t_sleep);
+	pthread_mutex_unlock(&philo->lock);
 	return (tm);
 }
 
@@ -60,6 +60,15 @@ uint64_t	get_curr_time(t_data *data)
 	pthread_mutex_lock(&data->lock);
 	tm = tm - data->t0;
 	pthread_mutex_unlock(&data->lock);
+	return (tm);
+}
+
+uint64_t	get_curr_time_f(t_data *data)
+{
+	uint64_t	tm;
+
+	tm = get_time_ms();
+	tm = tm - data->t0;
 	return (tm);
 }
 
