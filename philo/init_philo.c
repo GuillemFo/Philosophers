@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 19:10:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:17:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ int	create_philos(t_data *data)
 	while (i < data->nb_philo)
 	{
 		pthread_create(&data->philo[i].tid, NULL, routine, &data->philo[i]);
-		if (i %2 == 0)
-			usleep(50);
 		i++;
 	}
+	data->t0 = get_time_ms();
+	pthread_mutex_unlock(&data->lock);
 	if (ft_monitor(data) != 0)
 		i = 0;
 		while (i < data->nb_philo)

@@ -6,18 +6,18 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 19:21:49 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:07:02 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(uint64_t time, t_philo *philo)
+void	ft_usleep(uint64_t time)
 {
 	uint64_t	start_time;
 
 	start_time = get_time_ms();
-	while ((get_time_ms() - start_time) < time && check_philo_status(philo) == false)
+	while ((get_time_ms() - start_time) < time)
 		usleep(50);
 
 }
