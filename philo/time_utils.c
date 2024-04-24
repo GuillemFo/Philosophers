@@ -6,15 +6,15 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 21:52:25 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 00:32:42 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(uint64_t time)
+void	ft_usleep(unsigned long time)
 {
-	uint64_t	start_time;
+	unsigned long	start_time;
 
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time)
@@ -22,7 +22,7 @@ void	ft_usleep(uint64_t time)
 
 }
 
-void	ft_print_p(t_philo *philo, uint64_t t, int p, char *s)
+void	ft_print_p(t_philo *philo, unsigned long t, int p, char *s)
 {
 	bool	i;
 
@@ -31,7 +31,7 @@ void	ft_print_p(t_philo *philo, uint64_t t, int p, char *s)
 	i = philo->data->is_dead;
 	pthread_mutex_unlock(&philo->data->dead);
 	if (i == false || !ft_strcmp(s, "died"))
-		printf("%llu %d %s\n", t, p, s);
+		printf("%lu %d %s\n", t, p, s);
 	pthread_mutex_unlock(&philo->data->print);
 }
 

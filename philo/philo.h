@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 21:06:56 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 00:52:59 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@
 typedef struct s_philo
 {
 	int				id;
-	int				meals;
+	int				round;
+	bool			full;
 	pthread_t		tid;
 	struct s_data	*data;
-	uint64_t		lst_meal;
-	uint64_t		t_death;
-	uint64_t		t_eat;
-	uint64_t		t_sleep;
+	unsigned long		lst_meal;
+	unsigned long		t_death;
+	unsigned long		t_eat;
+	unsigned long		t_sleep;
 	int				nb_meal;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
@@ -52,13 +53,13 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				nb_philo;
-	uint64_t		t_death;
-	uint64_t		t_eat;
-	uint64_t		t_sleep;
+	unsigned long		t_death;
+	unsigned long		t_eat;
+	unsigned long		t_sleep;
 	int				nb_meal;
-	int				finished;
+	int				cnt_finish;
 	pthread_mutex_t	*fork;	
-	uint64_t		t0;
+	unsigned long		t0;
 	pthread_mutex_t	print;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	dead;
@@ -71,27 +72,23 @@ int			ft_atoi(const char *str);
 int			init_philos(t_data *data);
 int			create_philos(t_data *data);
 void		*routine(void *aux);
-uint64_t	get_time_ms(void);
-uint64_t	get_curr_time_f(t_data *data);
-uint64_t	eat_time(t_philo *philo);
-uint64_t	sleep_time(t_philo *philo);
-uint64_t	death_time(t_philo *philo);
-uint64_t	init_time(t_data *data);
-uint64_t	lst_meal_time(t_philo *philo);
+unsigned long	get_time_ms(void);
+unsigned long	get_curr_time(t_data *data);
+unsigned long	eat_time(t_philo *philo);
+unsigned long	sleep_time(t_philo *philo);
+unsigned long	death_time(t_philo *philo);
+unsigned long	lst_meal_time(t_philo *philo);
 int			ft_is_dead(t_data *data);
-int			check_philo_status(t_philo *philo);
-void		ft_usleep(uint64_t time);
-void		p_meals(t_philo *philo);
-void		ft_print_p(t_philo *philo, uint64_t t, int p, char *s);
-uint64_t	get_curr_time(t_data *data);
+void		ft_usleep(unsigned long time);
+void		philo_round(t_philo *philo);
+void		ft_print_p(t_philo *philo, unsigned long t, int p, char *s);
 int			create_one_philo(t_data *data);
 int			ft_strcmp(const char *s1, const char *s2);
-int			get_ph_meals(t_philo *philo);
-int			get_finished(t_data *data);
 void		increase_finished(t_data *data);
-int			get_data_meal(t_data *data);
-int			get_nb_philo(t_data *data);
 int			ft_monitor(t_data *data);
+int			check_philo_status(t_philo *philo);
 int			ft_finished(t_data *data);
+int			get_finished(t_data *data);
+unsigned long	get_curr_time_u(t_data *data);
 
 #endif
