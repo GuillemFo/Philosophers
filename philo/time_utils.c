@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 18:09:30 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:21:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,35 @@ void	ft_usleep(uint64_t time, t_philo *philo)
 
 }
 
+void	increase_finished(t_data *data)
+{
+	pthread_mutex_lock(&data->lock);
+	data->finished += 1;
+	pthread_mutex_unlock(&data->lock);
+}
+
+int	get_finished(t_data *data)
+{
+	int	i;
+	pthread_mutex_lock(&data->lock);
+	i = data->finished;
+	pthread_mutex_unlock(&data->lock);
+	return (i);
+}
+
+int	get_ph_meals(t_philo *philo)
+{
+	int	i;
+	pthread_mutex_lock(&philo->lock);
+	i = philo->meals;
+	pthread_mutex_unlock(&philo->lock);
+	return (i);
+}
+
 void	p_meals(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->lock);
-	philo->meals++;
+	philo->meals = philo->meals + 1;
 	pthread_mutex_unlock(&philo->lock);
 }
 

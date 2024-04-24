@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 18:02:52 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:16:34 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,23 @@ void	*routine(void *aux)
 		ft_think(philo);
 	}
 	return (NULL);
+}
+int	ft_monitor(t_data *data)
+{	
+	while (check_philo_status(data->philo) == false && ft_finished(data) == 0)
+	{
+		int	p;
+		int	j;
+		
+		j = ft_finished(data);
+		p = ft_is_dead(data);
+		if (p > 0)
+		{
+			ft_print_p(data->philo, get_curr_time_f(data), p, "died");
+			return (1);
+		}
+		if (j == -20)
+			return (2);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 18:17:37 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:10:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 int	ft_finished(t_data *data)
 {
 	int			i;
+	int			k;
 
 	i = 0;
-	while (i < data->nb_philo)
+	k = get_data_meal(data);
+	while (i < get_nb_philo(data))
 	{	
-		if (data->philo[i].meals >= data->nb_meal)
+		if (k != 0 && get_ph_meals(&data->philo[i]) >= k)
 		{
-			
+			if (get_ph_meals(&data->philo[i]) == k)
+				increase_finished(data);
+			if (get_finished(data) >= k)
+				return (-20);
 		}
-		usleep(10);
 		i++;
 	}
 	return (0);
@@ -89,34 +93,22 @@ int	create_philos(t_data *data)
 			usleep(50);
 		i++;
 	}
-	while (check_philo_status(data->philo) == false)
-	{
-		int	p;
-		int	j;
-		
-		j = ft_finished(data);
-		p = ft_is_dead(data);
-		if (p > 0)
+	if (ft_monitor(data) != 0)
+		i = 0;
+		while (i < data->nb_philo)
 		{
-			ft_print_p(data->philo, get_curr_time_f(data), p, "died");
-			break ;
+			pthread_join(data->philo[i].tid, NULL);
+			i++;
 		}
-	}
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		pthread_join(data->philo[i].tid, NULL);
-		i++;
-	}
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		pthread_mutex_destroy(&data->fork[i]);
-		pthread_mutex_destroy(&data->philo[i].lock);
-		i++;
-	}
-	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->lock);
+		i = 0;
+		while (i < data->nb_philo)
+		{
+			pthread_mutex_destroy(&data->fork[i]);
+			pthread_mutex_destroy(&data->philo[i].lock);
+			i++;
+		}
+		pthread_mutex_destroy(&data->print);
+		pthread_mutex_destroy(&data->lock);
 	return (0);
 }
 

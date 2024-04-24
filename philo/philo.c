@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 18:19:49 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:07:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	load_data(char **av, t_data *data)
 		pthread_mutex_init(&data->print, NULL);
 		pthread_mutex_init(&data->dead, NULL);
 		data->is_dead = false;
+		data->finished = 0;
 		data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
 		init_fork(data);
 		data->philo = malloc(data->nb_philo * sizeof(t_philo));

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 18:10:41 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:10:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_data
 	uint64_t		t_eat;
 	uint64_t		t_sleep;
 	int				nb_meal;
+	int				finished;
 	pthread_mutex_t	*fork;	
 	uint64_t		t0;
 	pthread_mutex_t	print;
@@ -85,5 +86,12 @@ void		ft_print_p(t_philo *philo, uint64_t t, int p, char *s);
 uint64_t	get_curr_time(t_data *data);
 int			create_one_philo(t_data *data);
 int			ft_strcmp(const char *s1, const char *s2);
+int			get_ph_meals(t_philo *philo);
+int			get_finished(t_data *data);
+void		increase_finished(t_data *data);
+int			get_data_meal(t_data *data);
+int			get_nb_philo(t_data *data);
+int			ft_monitor(t_data *data);
+int			ft_finished(t_data *data);
 
 #endif
