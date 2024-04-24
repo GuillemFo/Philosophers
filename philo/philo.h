@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/23 15:10:00 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:35:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@
 typedef struct s_philo
 {
 	int				id;
-	int				meals;
 	pthread_t		tid;
-	struct s_data	*data;
 	uint64_t		lst_meal;
-	pthread_mutex_t	lock;
+	uint64_t		t_death;
+	uint64_t		t_eat;
+	uint64_t		t_sleep;
+	int				nb_meal;
+	int				meals_cnt;
+	struct s_data	*data;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 }					t_philo;
@@ -52,8 +55,8 @@ typedef struct s_data
 	uint64_t		t_eat;
 	uint64_t		t_sleep;
 	int				nb_meal;
-	pthread_mutex_t	*fork;	
 	uint64_t		t0;
+	pthread_mutex_t	*fork;	
 	pthread_mutex_t	lock;
 	bool			is_dead;
 	t_philo			*philo;
@@ -73,7 +76,9 @@ uint64_t	init_time(t_data *data);
 uint64_t	lst_meal_time(t_philo *philo);
 int			ft_is_dead(t_data *data);
 int			check_philo_status(t_philo *philo);
-int			ft_usleep(uint64_t time);
+void		ft_usleep(uint64_t time, t_philo *philo);
 void		p_meals(t_philo *philo);
+void		ft_print_p(uint64_t t, int p, char *s);
+uint64_t	get_curr_time_f(t_data *data);
 
 #endif

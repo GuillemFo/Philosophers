@@ -6,11 +6,16 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 08:53:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:36:25 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_print_p(uint64_t t, int p, char *s)
+{
+	printf("%llu %d %s\n", t, p, s);
+}
 
 int	ft_is_dead(t_data *data)
 {
@@ -19,20 +24,10 @@ int	ft_is_dead(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		// printf("Time: %llu\n", get_curr_time(data));
-		// printf("Eat: %llu\n", eat_time(data->philo));
-		// printf("Sleep: %llu\n", sleep_time(data->philo));
-		// printf("Lst Meal: %llu\n", lst_meal_time(&data->philo[i]));
-		// printf("Death: %llu\n", death_time(&data->philo[i]));
-// 
-		//printf("Cal : %llu\n", lst_meal_time(data->philo));
-		
 		if (get_time_ms() -  lst_meal_time(&data->philo[i]) >=
 			death_time(&data->philo[i]))
 		{
-			pthread_mutex_lock(&data->lock);
 			data->is_dead = true;
-			pthread_mutex_unlock(&data->lock);
 			return (data->philo[i].id);
 		}
 		i++;
@@ -49,14 +44,16 @@ int	init_philos(t_data *data)
 	{
 		data->philo[i].data = data;
 		data->philo[i].id = i + 1;
-		data->philo[i].meals = -1;
-		pthread_mutex_init(&data->philo[i].lock, NULL);
-		data->philo[i].lst_meal = get_time_ms();
 		data->philo[i].r_fork = &data->fork[i];
 		if (i < data->nb_philo - 1)
 			data->philo[i].l_fork = &data->fork[i + 1];
 		else
 			data->philo[i].l_fork = &data->fork[0];
+		data->philo[i].t_death = data->t_death;
+		data->philo[i].t_eat = data->t_eat;
+		data->philo[i].t_sleep = data->t_sleep;
+		data->philo[i].nb_meal = data->nb_meal;
+		data->philo[i].meals_cnt = 0;
 		i++;
 	}
 	return (0);
@@ -65,15 +62,14 @@ int	init_philos(t_data *data)
 int	create_philos(t_data *data)
 {
 	int	i;
-	i = 0;	
-	//	mutex lock for start var
+
+	i = 0;
 	while (i < data->nb_philo)
 	{
 		pthread_create(&data->philo[i].tid, NULL, routine, &data->philo[i]);
 		i++;
 	}
-	//	init t0
-	//		mutex unlock for start var
+	//data->t0 = get_time_ms();
 	while (data->is_dead == false)
 	{
 		int	p;
