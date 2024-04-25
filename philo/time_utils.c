@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:59:22 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 12:30:22 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_usleep(unsigned long long time)
 
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time)
-		usleep(50);
+		usleep(100);
 
 }
 
