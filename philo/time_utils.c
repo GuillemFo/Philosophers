@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:59:22 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 06:40:55 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(unsigned long long time)
+void	ft_usleep(unsigned long long time, t_philo *philo)
 {
 	unsigned long long	start_time;
 
 	start_time = get_time_ms();
-	while ((get_time_ms() - start_time) < time)
+	while ((get_time_ms() - start_time) < time && check_philo_status(philo) == 0)
 		usleep(50);
 
 }

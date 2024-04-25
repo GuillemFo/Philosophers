@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 04:15:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 06:58:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_finished(t_data *data)
 	return (0);
 }
 
+//This checker lags the program, and probably the ft_finished also
+
 int	ft_is_dead(t_data *data)
 {
 	int			i;
@@ -48,7 +50,7 @@ int	ft_is_dead(t_data *data)
 			pthread_mutex_unlock(&data->dead);
 			return (data->philo[i].id);
 		}
-		usleep(10);
+		usleep(50);
 		i++;
 	}
 	return (0);
@@ -117,7 +119,7 @@ int	create_philos(t_data *data)
 int	create_one_philo(t_data *data)
 {
 	pthread_create(&data->philo[0].tid, NULL, routine, &data->philo[0]);
-	ft_usleep(data->t_death);
+	ft_usleep(data->t_death, data->philo);
 	ft_print_death(data->philo, data->t_death, 1, "died");
 	pthread_detach(data->philo[0].tid);
 	pthread_mutex_destroy(&data->fork[0]);
