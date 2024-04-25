@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:09:17 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 15:24:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:52:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-uint64_t	lst_meal_time(t_philo *philo)
+unsigned long long	lst_meal_time(t_philo *philo)
 {
-	uint64_t	tm;
+	unsigned long long	tm;
 
 	pthread_mutex_lock(&philo->lock);
 	tm = philo->lst_meal;
@@ -22,39 +22,57 @@ uint64_t	lst_meal_time(t_philo *philo)
 	return (tm);
 }
 
-uint64_t	death_time(t_philo *philo)
+unsigned long long	death_time(t_philo *philo)
 {
-	uint64_t	tm;
+	unsigned long long	tm;
 
-	pthread_mutex_lock(&philo->data->lock);
-	tm = (philo->data->t_death * 1000);
-	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_lock(&philo->lock);
+	tm = (philo->t_death);
+	pthread_mutex_unlock(&philo->lock);
 	return (tm);
 }
 
-uint64_t	eat_time(t_philo *philo)
+unsigned long long	eat_time(t_philo *philo)
 {
-	uint64_t	tm;
+	unsigned long long	tm;
 
-	pthread_mutex_lock(&philo->data->lock);
-	tm = (philo->data->t_eat * 1000);
-	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_lock(&philo->lock);
+	tm = (philo->t_eat);
+	pthread_mutex_unlock(&philo->lock);
 	return (tm);
 }
 
-uint64_t	sleep_time(t_philo *philo)
+int	get_nb_philo(t_data *data)
 {
-	uint64_t	tm;
+	int	i;
 
-	pthread_mutex_lock(&philo->data->lock);
-	tm = (philo->data->t_sleep * 1000);
-	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_lock(&data->lock);
+	i = (data->nb_philo);
+	pthread_mutex_unlock(&data->lock);
+	return (i);
+}
+
+int	get_data_meal(t_data *data)
+{
+	int	i;
+
+	i = (data->nb_meal);
+	return (i);
+}
+
+unsigned long long	sleep_time(t_philo *philo)
+{
+	unsigned long long	tm;
+
+	pthread_mutex_lock(&philo->lock);
+	tm = (philo->t_sleep);
+	pthread_mutex_unlock(&philo->lock);
 	return (tm);
 }
 
-uint64_t	get_curr_time(t_data *data)
+unsigned long long	get_curr_time(t_data *data)
 {
-	uint64_t	tm;
+	unsigned long long	tm;
 
 	tm = get_time_ms();
 	pthread_mutex_lock(&data->lock);
@@ -63,9 +81,18 @@ uint64_t	get_curr_time(t_data *data)
 	return (tm);
 }
 
-uint64_t	init_time(t_data *data)
+unsigned long long	get_curr_time_f(t_data *data)
 {
-	uint64_t	tm;
+	unsigned long long	tm;
+
+	tm = get_time_ms();
+	tm = tm - data->t0;
+	return (tm);
+}
+
+unsigned long long	init_time(t_data *data)
+{
+	unsigned long long	tm;
 
 	pthread_mutex_lock(&data->lock);
 	tm = data->t0;
@@ -73,12 +100,12 @@ uint64_t	init_time(t_data *data)
 	return (tm);
 }
 
-uint64_t	get_time_ms(void)
+unsigned long long	get_time_ms(void)
 {
 	struct timeval	time;
-	uint64_t		t;
+	unsigned long long		t;
 
 	gettimeofday(&time, NULL);
-	t = (uint64_t)(time.tv_sec * 1000) + (uint64_t)(time.tv_usec / 1000);
+	t = (unsigned long long)(time.tv_sec * 1000) + (unsigned long long)(time.tv_usec / 1000);
 	return (t);
 }

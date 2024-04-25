@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:08:14 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 13:26:56 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/18 09:42:33 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ bool	check_input_valid(char **av)
 {
 	if (is_digit_str(av[1]) == false || is_ok_dgit(av[1], 200) == false)
 		return (false);
-	if (is_digit_str(av[2]) == false || is_ok_dgit(av[2], 10000) == false)
+	if (is_digit_str(av[2]) == false || is_ok_dgit(av[2], 1000000) == false)
 		return (false);
-	if (is_digit_str(av[3]) == false || is_ok_dgit(av[3], 10000) == false)
+	if (is_digit_str(av[3]) == false || is_ok_dgit(av[3], 1000000) == false)
 		return (false);
-	if (is_digit_str(av[4]) == false || is_ok_dgit(av[4], 10000) == false)
+	if (is_digit_str(av[4]) == false || is_ok_dgit(av[4], 1000000) == false)
 		return (false);
 	if (av[5])
 	{

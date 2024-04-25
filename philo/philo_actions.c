@@ -3,53 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/17 17:18:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 03:35:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-int			check_philo_status()	//add this function before any philo move like take a fork, think or sleep and close the thread with return. create a cleaner to destroy all threads and mutex
+int	check_philo_status(t_philo *philo)
 {
-	
+	pthread_mutex_lock(&philo->data->dead);
+	if ((philo->data->is_dead) == true)
+	{
+		pthread_mutex_unlock(&philo->data->dead);
+		return (-99);
+	}
+	pthread_mutex_unlock(&philo->data->dead);
+	return (0);
 }
 
 void	ft_think(t_philo *philo)
 {
-	printf("%llu Philo: %d is thinking\n", get_curr_time(philo->data),
-		philo->id);
+	ft_print_p(philo, get_curr_time_f(philo->data), philo->id, "is thinking");
 }
 
 void	ft_eat(t_philo *philo)
 {
-	uint64_t	time;
-
 	pthread_mutex_lock(philo->r_fork);
-	printf("%llu Philo: %d  has taken a fork\n", get_curr_time(philo->data),
-		philo->id);
+	ft_print_p(philo, get_curr_time(philo->data), philo->id, "has taken a fork");
 	pthread_mutex_lock(philo->l_fork);
-	printf("%llu Philo: %d  has taken a fork\n", get_curr_time(philo->data),
-		philo->id);
+	ft_print_p(philo, get_curr_time(philo->data), philo->id, "has taken a fork");
 	pthread_mutex_lock(&philo->lock);
-	philo->lst_meal = get_curr_time(philo->data);
+	philo->lst_meal = get_time_ms();
 	pthread_mutex_unlock(&philo->lock);
-	printf("%llu Philo: %d is eating\n", philo->lst_meal, philo->id);
-	time = eat_time(philo);
-	usleep(time);
+	p_meals(philo);
+	ft_print_p(philo, get_curr_time(philo->data), philo->id, "is eating");
+	ft_usleep(philo->t_eat);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
 
 void	ft_sleep(t_philo *philo)
 {
-	uint64_t	time;
-
-	time = get_curr_time(philo->data);
-	printf("%llu Philo: %d is sleeping\n", time, philo->id);
-	time = sleep_time(philo);
-	usleep(time);
+	ft_print_p(philo, get_curr_time(philo->data), philo->id, "is sleeping");
+	ft_usleep(philo->t_sleep);
 }
 
 void	*routine(void *aux)
@@ -57,8 +55,40 @@ void	*routine(void *aux)
 	t_philo	*philo;
 
 	philo = aux;
-	ft_eat(philo);
-	ft_sleep(philo);
-	ft_think(philo);
+	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->data->lock);
+	philo->lst_meal = philo->data->t0;
+	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_unlock(&philo->lock);
+	if(philo->id % 2 == 0)
+		ft_usleep(50);
+	while (check_philo_status(philo) == 0)
+	{
+		ft_eat(philo);
+		ft_sleep(philo);
+		ft_think(philo);
+	}
 	return (NULL);
+}
+int	ft_monitor(t_data *data)
+{	
+	while (check_philo_status(data->philo) == false)
+	{
+		int	p;
+		int	j;
+		
+		j = ft_finished(data);
+		p = ft_is_dead(data);
+		if (p > 0)
+		{
+			ft_print_death(data->philo, get_curr_time(data), p, "died");
+			return (1);
+		}
+		if (j == -20)
+		{
+			data->is_dead = true;
+			return (2);
+		}
+	}
+	return (0);
 }
