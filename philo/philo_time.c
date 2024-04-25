@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:56:05 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 12:56:19 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:21:21 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_print_death(t_philo *philo, unsigned long long t, int p, char *s)
 	i = philo->data->is_dead;
 	pthread_mutex_unlock(&philo->data->dead);
 	if (i == false || !ft_strcmp(s, "died"))
-		printf(C_RED "%llu %d %s\n", t, p, s);
+		printf(C_RED "%llu %d %s\n" C_RESET, t, p, s);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
