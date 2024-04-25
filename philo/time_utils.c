@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 06:40:55 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:45:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	ft_usleep(unsigned long long time, t_philo *philo)
 {
 	unsigned long long	start_time;
 
-	start_time = get_time_ms();
-	while ((get_time_ms() - start_time) < time && check_philo_status(philo) == 0)
+	start_time = get_time();
+	while ((get_time() - start_time) <= time && check_philo_status(philo) == 0)
 		usleep(50);
 
 }
@@ -25,13 +25,6 @@ void	ft_usleep(unsigned long long time, t_philo *philo)
 void	increase_finished(t_data *data)
 {
 	data->finished += 1;
-}
-
-int	get_finished(t_data *data)
-{
-	int	i;
-	i = data->finished;
-	return (i);
 }
 
 int	get_ph_meals(t_philo *philo)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:09:17 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:52:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 11:44:58 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ unsigned long long	get_curr_time(t_data *data)
 {
 	unsigned long long	tm;
 
-	tm = get_time_ms();
+	tm = get_time();
 	pthread_mutex_lock(&data->lock);
 	tm = tm - data->t0;
 	pthread_mutex_unlock(&data->lock);
@@ -85,7 +85,7 @@ unsigned long long	get_curr_time_f(t_data *data)
 {
 	unsigned long long	tm;
 
-	tm = get_time_ms();
+	tm = get_time();
 	tm = tm - data->t0;
 	return (tm);
 }
@@ -100,12 +100,21 @@ unsigned long long	init_time(t_data *data)
 	return (tm);
 }
 
-unsigned long long	get_time_ms(void)
+unsigned long long	get_time(void)
 {
 	struct timeval	time;
 	unsigned long long		t;
 
 	gettimeofday(&time, NULL);
-	t = (unsigned long long)(time.tv_sec * 1000) + (unsigned long long)(time.tv_usec / 1000);
+	t = ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	return (t);
+}
+unsigned long long	get_time_ms(unsigned long long t0)
+{
+	struct timeval	time;
+	unsigned long long		t;
+
+	gettimeofday(&time, NULL);
+	t = ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - t0;
 	return (t);
 }

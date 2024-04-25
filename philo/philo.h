@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 06:41:41 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:44:13 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			ft_atoi(const char *str);
 int			init_philos(t_data *data);
 int			create_philos(t_data *data);
 void		*routine(void *aux);
-unsigned long long	get_time_ms(void);
+unsigned long long	get_time_ms(unsigned long long t0);
 unsigned long long	get_curr_time_f(t_data *data);
 unsigned long long	eat_time(t_philo *philo);
 unsigned long long	sleep_time(t_philo *philo);
@@ -94,5 +94,6 @@ int			get_data_meal(t_data *data);
 int			get_nb_philo(t_data *data);
 int			ft_monitor(t_data *data);
 int			ft_finished(t_data *data);
+unsigned long long	get_time(void);
 
 #endif
