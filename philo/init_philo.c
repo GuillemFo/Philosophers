@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:09:49 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:03:08 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	init_philos(t_data *data)
 		data->philo[i].t_eat = data->t_eat;
 		data->philo[i].t_sleep = data->t_sleep;
 		data->philo[i].nb_meal = data->nb_meal;
-		data->philo[i].lst_meal = data->t_death + 300;
+		data->philo[i].lst_meal = data->t_death;
 		i++;
 	}
 	return (0);

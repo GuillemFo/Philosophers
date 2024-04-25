@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 00:48:34 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:14:40 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:04:27 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,16 @@
 int	ft_is_dead(t_data *data)
 {
 	int			i;
-	long long	sum;
 
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		sum = (get_lst_meal(&data->philo[i]));
-		printf("*****%llu ******\n", sum);
-		if ( sum >=  get_death_time(data))
+		if (get_lst_meal(&data->philo[i])  >=  get_death_time(data))
 		{
 			pthread_mutex_lock(&data->dead);
 			data->is_dead = true;
 			pthread_mutex_unlock(&data->dead);
-			return (data->philo[i].id);
+			return (i);
 		}
 		usleep(10);
 		i++;
@@ -55,8 +52,8 @@ int	create_philos(t_data *data)
 		p = ft_is_dead(data);
 		if (p > 0)
 		{
-			ft_print_p(data->philo, get_curr_time_clean_u(data), p, "died");
-			return (1);
+			ft_print_p(data->philo, get_curr_time_clean(data), p, "died");
+			break ;
 		}
 	}
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 08:28:11 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 00:02:24 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:02:20 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	load_data(char **av, t_data *data)
 		init_fork(data);
 		data->philo = malloc(data->nb_philo * sizeof(t_philo));
 		init_philos(data);
+		data->t0 = get_time_ms();
 	}
 	else
 		return (-1);
@@ -55,10 +56,12 @@ int	load_data(char **av, t_data *data)
 int	main(int ac, char **av)
 {
 	t_data		data;
+	int			flag;
 
 	if (ac < 5 || ac > 6)
 		return (printf("Invalid number of arguments\n"), 1);
-	if (load_data(av, &data) == -1)
+	flag = load_data(av, &data);
+	if (flag == -1)
 		return (printf("Invalid argument/s\n"), 1);
 	if (data.nb_philo == 1)
 		create_one_philo(&data);
