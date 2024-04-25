@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 21:07:02 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:49:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(uint64_t time)
+void	ft_usleep(unsigned long long time)
 {
-	uint64_t	start_time;
+	unsigned long long	start_time;
 
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time)
@@ -24,17 +24,13 @@ void	ft_usleep(uint64_t time)
 
 void	increase_finished(t_data *data)
 {
-	pthread_mutex_lock(&data->lock);
 	data->finished += 1;
-	pthread_mutex_unlock(&data->lock);
 }
 
 int	get_finished(t_data *data)
 {
 	int	i;
-	pthread_mutex_lock(&data->lock);
 	i = data->finished;
-	pthread_mutex_unlock(&data->lock);
 	return (i);
 }
 
@@ -54,7 +50,7 @@ void	p_meals(t_philo *philo)
 	pthread_mutex_unlock(&philo->lock);
 }
 
-void	ft_print_p(t_philo *philo, uint64_t t, int p, char *s)
+void	ft_print_p(t_philo *philo, unsigned long long t, int p, char *s)
 {
 	bool	i;
 

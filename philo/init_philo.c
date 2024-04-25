@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/24 21:17:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:40:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_is_dead(t_data *data)
 			pthread_mutex_unlock(&data->dead);
 			return (data->philo[i].id);
 		}
-		usleep(10);
+		usleep(50);
 		i++;
 	}
 	return (0);
@@ -94,6 +94,7 @@ int	create_philos(t_data *data)
 	data->t0 = get_time_ms();
 	pthread_mutex_unlock(&data->lock);
 	if (ft_monitor(data) != 0)
+	{
 		i = 0;
 		while (i < data->nb_philo)
 		{
@@ -109,6 +110,7 @@ int	create_philos(t_data *data)
 		}
 		pthread_mutex_destroy(&data->print);
 		pthread_mutex_destroy(&data->lock);
+	}
 	return (0);
 }
 
