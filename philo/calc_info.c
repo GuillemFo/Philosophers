@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 00:25:22 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 00:58:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 01:50:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,9 @@ void	philo_round(t_philo *philo)
 		philo->full = true;
 }
 
-unsigned long	lst_meal_time(t_philo *philo)
+long long	get_curr_time_clean(t_data *data)
 {
-	unsigned long	i;
-	i = philo->lst_meal;
-	pthread_mutex_lock(&philo->data->lock);
-	i = i - philo->data->t0;
-	pthread_mutex_unlock(&philo->data->lock);
-	return (i);
-}
-
-unsigned long	get_curr_time(t_data *data)
-{
-	unsigned long	time;
+	long long	time;
 
 	time = get_time_ms();
 	pthread_mutex_lock(&data->lock);
@@ -40,19 +30,19 @@ unsigned long	get_curr_time(t_data *data)
 	return (time);
 }
 
-unsigned long	get_curr_time_u(t_data *data)
+long long	get_curr_time_clean_u(t_data *data)
 {
-	unsigned long	time;
+	long long	time;
 
 	time = get_time_ms();
 	time = time - data->t0;
 	return (time);
 }
 
-unsigned long	get_time_ms(void)
+long long	get_time_ms(void)
 {
 	struct timeval	time;
-	unsigned long		t;
+	long long		t;
 
 	gettimeofday(&time, NULL);
 	t = (time.tv_sec * 1000) + (time.tv_usec / 1000);

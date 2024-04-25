@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 00:48:34 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 00:55:40 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:14:40 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 int	ft_is_dead(t_data *data)
 {
 	int			i;
+	long long	sum;
 
 	i = 0;
 	while (i < data->nb_philo)
-	{	
-		if (lst_meal_time(&data->philo[i]) >=
-			data->t_death)
+	{
+		sum = (get_lst_meal(&data->philo[i]));
+		printf("*****%llu ******\n", sum);
+		if ( sum >=  get_death_time(data))
 		{
 			pthread_mutex_lock(&data->dead);
 			data->is_dead = true;
@@ -44,7 +46,7 @@ int	create_philos(t_data *data)
 		pthread_create(&data->philo[i].tid, NULL, routine, &data->philo[i]);
 		i++;
 	}
-	data->t0 = get_time_ms();
+	data->t0 = get_time_ms();	//real time
 	pthread_mutex_unlock(&data->lock);
 	while (check_philo_status(data->philo) == false)
 	{
@@ -53,7 +55,7 @@ int	create_philos(t_data *data)
 		p = ft_is_dead(data);
 		if (p > 0)
 		{
-			ft_print_p(data->philo, get_curr_time(data), p, "died");
+			ft_print_p(data->philo, get_curr_time_clean_u(data), p, "died");
 			return (1);
 		}
 	}
@@ -85,7 +87,7 @@ int	create_one_philo(t_data *data)
 		p = ft_is_dead(data);
 		if (p > 0)
 		{
-			ft_print_p(data->philo, get_curr_time_u(data), p, "died");
+			ft_print_p(data->philo, get_curr_time_clean_u(data), p, "died");
 			break ;
 		}
 	}

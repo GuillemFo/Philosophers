@@ -6,15 +6,27 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 00:24:40 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 00:46:23 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:14:52 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// unsigned long	eat_time(t_philo *philo)
-// {
-// 	unsigned long	i;
-// 	i = philo->t_eat;
-// 	return (i);
-// }
+long long	get_death_time(t_data *data)
+{
+	long long	i;
+	pthread_mutex_lock(&data->dead);
+	i = data->t_death;
+	pthread_mutex_unlock(&data->dead);
+	return (i);
+
+}
+
+long long	get_lst_meal(t_philo *philo)
+{
+	long long	i;
+	pthread_mutex_lock(&philo->lock);
+	i =  philo->lst_meal;
+	pthread_mutex_unlock(&philo->lock);
+	return (i);
+}
