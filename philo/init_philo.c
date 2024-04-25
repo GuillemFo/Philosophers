@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 12:23:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:48:11 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_finished(t_data *data)
 {
-	int			i;
-	int			k;
+	int	i;
+	int	k;
 
 	i = 0;
 	k = get_data_meal(data);
 	while (i < get_nb_philo(data))
-	{	
+	{
 		if (k != 0 && get_ph_meals(&data->philo[i]) >= k)
 		{
 			if (get_ph_meals(&data->philo[i]) == k)
@@ -35,13 +35,13 @@ int	ft_finished(t_data *data)
 
 int	ft_is_dead(t_data *data)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < data->nb_philo)
-	{	
-		if (get_time_ms() - lst_meal_time(&data->philo[i]) >=
-			death_time(&data->philo[i]))
+	{
+		if (get_time_ms()
+			- lst_meal_time(&data->philo[i]) >= death_time(&data->philo[i]))
 		{
 			pthread_mutex_lock(&data->dead);
 			data->is_dead = true;
@@ -85,7 +85,6 @@ int	create_philos(t_data *data)
 	int	i;
 
 	i = 0;
-
 	while (i < data->nb_philo)
 	{
 		pthread_create(&data->philo[i].tid, NULL, routine, &data->philo[i]);
@@ -95,21 +94,7 @@ int	create_philos(t_data *data)
 	pthread_mutex_unlock(&data->lock);
 	if (ft_monitor(data) != 0)
 	{
-		i = 0;
-		while (i < data->nb_philo)
-		{
-			pthread_join(data->philo[i].tid, NULL);
-			i++;
-		}
-		i = 0;
-		while (i < data->nb_philo)
-		{
-			pthread_mutex_destroy(&data->fork[i]);
-			pthread_mutex_destroy(&data->philo[i].lock);
-			i++;
-		}
-		pthread_mutex_destroy(&data->print);
-		pthread_mutex_destroy(&data->lock);
+		clean_and_destroy(data);
 	}
 	return (0);
 }
