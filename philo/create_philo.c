@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_philo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 00:48:34 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 04:04:27 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:23:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_is_dead(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		if (get_lst_meal(&data->philo[i])  >=  get_death_time(data))
+		if ( get_lst_meal(&data->philo[i]) - get_time_ms() >=  get_death_time(data))
 		{
 			pthread_mutex_lock(&data->dead);
 			data->is_dead = true;

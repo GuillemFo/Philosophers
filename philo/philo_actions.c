@@ -3,26 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 03:55:32 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:20:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 int	check_philo_status(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->lock);
 	pthread_mutex_lock(&philo->data->dead);
 	if ((philo->data->is_dead) == true)
 	{
 		pthread_mutex_unlock(&philo->data->dead);
-		pthread_mutex_unlock(&philo->lock);
 		return (-99);
 	}
 	pthread_mutex_unlock(&philo->data->dead);
-	pthread_mutex_unlock(&philo->lock);
 	return (0);
 }
 
@@ -62,7 +59,7 @@ void	*routine(void *aux)
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_unlock(&philo->data->lock);
 	if(philo->id % 2 != 0)
-		ft_usleep(1);
+		ft_usleep(50);
 	while (check_philo_status(philo) == 0)
 	{
 		ft_eat(philo);

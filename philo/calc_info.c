@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 00:25:22 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 04:06:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:22:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void	philo_round(t_philo *philo)
 		philo->full = true;
 }
 
-uint64_t	get_curr_time_clean(t_data *data)
+unsigned long long	get_curr_time_clean(t_data *data)
 {
-	uint64_t	time;
+	unsigned long long	time;
 
 	pthread_mutex_lock(&data->lock);
 	time = get_time_ms() - data->t0;
 	pthread_mutex_unlock(&data->lock);
 	return (time);
 }
-uint64_t	get_curr_time_clean_u(t_data *data)
+unsigned long long	get_curr_time_clean_u(t_data *data)
 {
-	uint64_t	time;
+	unsigned long long	time;
 
 	time = get_time_ms() - data->t0;
 	return (time);
@@ -38,17 +38,16 @@ uint64_t	get_curr_time_clean_u(t_data *data)
 
 void	set_lst_meal(t_data *data)
 {
-	pthread_mutex_lock(&data->lock);
 	pthread_mutex_lock(&data->philo->lock);
-	data->philo->lst_meal = (get_time_ms() - data->t0);
+	data->philo->lst_meal = (get_time_ms());
 	pthread_mutex_unlock(&data->philo->lock);
-	pthread_mutex_unlock(&data->lock);
+
 }
 
-uint64_t	get_time_ms(void)
+unsigned long long	get_time_ms(void)
 {
 	struct timeval	time;
-	uint64_t		t;
+	unsigned long long		t;
 
 	gettimeofday(&time, NULL);
 	t = (time.tv_sec * 1000) + (time.tv_usec / 1000);

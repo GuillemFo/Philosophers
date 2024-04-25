@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 09:08:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 03:55:40 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:10:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(uint64_t time)
+void	ft_usleep(unsigned long long time)
 {
-	uint64_t	start_time;
+	unsigned long long	start_time;
 
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time)
@@ -22,7 +22,7 @@ void	ft_usleep(uint64_t time)
 
 }
 
-void	ft_print_p(t_philo *philo, uint64_t t, int p, char *s)
+void	ft_print_p(t_philo *philo, unsigned long long t, int p, char *s)
 {
 
 	pthread_mutex_lock(&philo->data->print);
