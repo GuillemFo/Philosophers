@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 12:52:45 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:09:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ int	ft_monitor(t_data *data)
 		}
 		if (j == -20)
 		{
+			pthread_mutex_lock(&data->philo->lock);
+			pthread_mutex_lock(&data->dead);
 			data->is_dead = true;
+			pthread_mutex_unlock(&data->dead);
+			pthread_mutex_unlock(&data->philo->lock);
 			return (2);
 		}
 	}
