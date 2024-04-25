@@ -2,11 +2,12 @@ NAME = philo
 
 OBJ_PATH = tmp/
 
-SRC = philo.c input_check.c init_philo.c philo_actions.c time.c time_utils.c
+SRC = philo.c input_check.c init_philo.c philo_actions.c time.c \
+		time_utils.c time_utils_2.c utils.c philo_time.c 
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -pthread #-g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
 
 #################################################################
 
@@ -34,7 +35,7 @@ $(NAME): $(OBJ)
 				@cc $(CFLAGS) $(OBJ) -o $(NAME)
 				@echo "$(GREEN)Philo compiled$(RESET)"
 
-$(OBJ_PATH)%.o:%.c  Makefile
+$(OBJ_PATH)%.o:%.c philo.h Makefile
 				@mkdir -p $(dir $@)
 				@cc $(CFLAGS) -c $< -o $@
 				@echo "$(CYAN)Compiling Philo:$(YELLOW) $@$(RESET)"
