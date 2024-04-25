@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:39:11 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 02:58:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*routine(void *aux)
 	philo->lst_meal = philo->data->t0;
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_unlock(&philo->data->lock);
-	if(philo->id % 2 == 0)
+	if(philo->id % 2 != 0)
 		usleep(150);
 	while (check_philo_status(philo) == 0)
 	{
@@ -72,7 +72,7 @@ void	*routine(void *aux)
 }
 int	ft_monitor(t_data *data)
 {	
-	while (check_philo_status(data->philo) == false && ft_finished(data) == 0)
+	while (check_philo_status(data->philo) == false)
 	{
 		int	p;
 		int	j;
@@ -81,11 +81,14 @@ int	ft_monitor(t_data *data)
 		p = ft_is_dead(data);
 		if (p > 0)
 		{
-			ft_print_p(data->philo, get_curr_time(data), p, "died");
+			ft_print_death(data->philo, get_curr_time(data), p, "died");
 			return (1);
 		}
 		if (j == -20)
+		{
+			data->is_dead = true;
 			return (2);
+		}
 	}
 	return (0);
 }

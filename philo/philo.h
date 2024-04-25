@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:39 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:25:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 03:04:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int			check_philo_status(t_philo *philo);
 void		ft_usleep(unsigned long long time);
 void		p_meals(t_philo *philo);
 void		ft_print_p(t_philo *philo, unsigned long long t, int p, char *s);
+void		ft_print_death(t_philo *philo, unsigned long long t, int p, char *s);
 unsigned long long	get_curr_time(t_data *data);
 int			create_one_philo(t_data *data);
 int			ft_strcmp(const char *s1, const char *s2);

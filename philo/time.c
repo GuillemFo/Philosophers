@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:09:17 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:25:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 02:52:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ int	get_data_meal(t_data *data)
 {
 	int	i;
 
-	pthread_mutex_lock(&data->lock);
 	i = (data->nb_meal);
-	pthread_mutex_unlock(&data->lock);
 	return (i);
 }
 

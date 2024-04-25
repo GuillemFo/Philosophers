@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:40:51 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 03:04:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_is_dead(t_data *data)
 			pthread_mutex_unlock(&data->dead);
 			return (data->philo[i].id);
 		}
-		usleep(50);
+		usleep(10);
 		i++;
 	}
 	return (0);
@@ -124,9 +124,7 @@ int	create_one_philo(t_data *data)
 		p = ft_is_dead(data);
 		if (p > 0)
 		{
-			pthread_mutex_lock(&data->print);
-			printf(C_RED "%llu Philo: %d  died\n"C_WHI, get_curr_time_f(data), p);
-			pthread_mutex_unlock(&data->print);
+			ft_print_death(data->philo, get_curr_time(data), p, "died");
 			break ;
 		}
 	}
