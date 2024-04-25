@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 02:58:29 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 03:35:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->lock);
 	p_meals(philo);
 	ft_print_p(philo, get_curr_time(philo->data), philo->id, "is eating");
-	ft_usleep(eat_time(philo));
+	ft_usleep(philo->t_eat);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
@@ -47,7 +47,7 @@ void	ft_eat(t_philo *philo)
 void	ft_sleep(t_philo *philo)
 {
 	ft_print_p(philo, get_curr_time(philo->data), philo->id, "is sleeping");
-	ft_usleep(sleep_time(philo));
+	ft_usleep(philo->t_sleep);
 }
 
 void	*routine(void *aux)
@@ -55,13 +55,13 @@ void	*routine(void *aux)
 	t_philo	*philo;
 
 	philo = aux;
-	pthread_mutex_lock(&philo->data->lock);
 	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->data->lock);
 	philo->lst_meal = philo->data->t0;
-	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_unlock(&philo->data->lock);
-	if(philo->id % 2 != 0)
-		usleep(150);
+	pthread_mutex_unlock(&philo->lock);
+	if(philo->id % 2 == 0)
+		ft_usleep(50);
 	while (check_philo_status(philo) == 0)
 	{
 		ft_eat(philo);
