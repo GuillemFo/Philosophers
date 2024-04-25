@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:51:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 03:35:07 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 12:22:20 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*routine(void *aux)
 	pthread_mutex_unlock(&philo->data->lock);
 	pthread_mutex_unlock(&philo->lock);
 	if(philo->id % 2 == 0)
-		ft_usleep(50);
+		ft_usleep(150);
 	while (check_philo_status(philo) == 0)
 	{
 		ft_eat(philo);

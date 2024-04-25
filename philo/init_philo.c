@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 04:15:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 12:23:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_is_dead(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{	
-		if (get_time_ms() -  lst_meal_time(&data->philo[i]) >=
+		if (get_time_ms() - lst_meal_time(&data->philo[i]) >=
 			death_time(&data->philo[i]))
 		{
 			pthread_mutex_lock(&data->dead);
