@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:20:31 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/25 03:20:28 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 04:15:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,8 @@ int	create_philos(t_data *data)
 int	create_one_philo(t_data *data)
 {
 	pthread_create(&data->philo[0].tid, NULL, routine, &data->philo[0]);
-	while (data->is_dead == false)
-	{
-		int	p;
-		
-		p = ft_is_dead(data);
-		if (p > 0)
-		{
-			ft_print_death(data->philo, get_curr_time(data), p, "died");
-			break ;
-		}
-	}
+	ft_usleep(data->t_death);
+	ft_print_death(data->philo, data->t_death, 1, "died");
 	pthread_detach(data->philo[0].tid);
 	pthread_mutex_destroy(&data->fork[0]);
 	pthread_mutex_destroy(&data->print);
