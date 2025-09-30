@@ -61,21 +61,7 @@
 - `pthread_mutex_init`, `pthread_mutex_destroy`, `pthread_mutex_lock`, `pthread_mutex_unlock`
 - `gettimeofday`, `usleep`, `printf`, `malloc`, `free`
 
-## 🏆 Bonus Part
 
-### Technical Requirements  
-| Component | Specification |
-|-----------|---------------|
-| **Program Name** | `philo_bonus` |
-| **Directory** | `philo_bonus/` |
-| **Synchronization** | Processes + Semaphores |
-
-### Implementation Details
-- **Each philosopher is a process**
-- **Forks in middle of table** with availability tracked by semaphore
-- **Main process** is not a philosopher
-- **Semaphore functions**: `sem_open`, `sem_close`, `sem_post`, `sem_wait`, `sem_unlink`
-- **Process functions**: `fork`, `kill`, `exit`, `waitpid`
 
 ## 🎯 Learning Objectives
 
