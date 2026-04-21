@@ -1,3 +1,5 @@
+*****AI used to explain this project*****
+
 # Philosophers — I Never Thought Philosophy Would Be So Deadly
 
 ## 🎯 Project Overview
